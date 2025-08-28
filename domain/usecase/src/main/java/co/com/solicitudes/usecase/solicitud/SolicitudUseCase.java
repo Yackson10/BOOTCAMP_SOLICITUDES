@@ -1,7 +1,7 @@
 package co.com.solicitudes.usecase.solicitud;
 
 import co.com.solicitudes.model.solicitud.Solicitud;
-import co.com.solicitudes.model.solicitud.gateways.SolicitudRepositorio;
+import co.com.solicitudes.model.solicitud.gateways.ISolicitudRepositorio;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -9,14 +9,14 @@ import java.util.UUID;
 
 
 @RequiredArgsConstructor
-public class UseCaseSolicitud {
+public class SolicitudUseCase {
 
     private static final double MIN_MONTO = 500_000;
     private static final double MAX_MONTO = 100_000_000;
     private static final int MIN_PLAZO = 6;
     private static final int MAX_PLAZO = 84;
 
-    private SolicitudRepositorio solicitudRepositorio;
+    private ISolicitudRepositorio solicitudRepositorio;
 
     public Mono<Solicitud> registrar(Solicitud solicitud) {
         return Mono.just(solicitud)
