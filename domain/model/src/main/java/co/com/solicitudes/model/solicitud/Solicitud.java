@@ -9,7 +9,6 @@ import lombok.*;
 @Builder(toBuilder = true)
 public class Solicitud {
 
-    private Long id;
     private Double monto;
     private Integer plazo;
     private String email;

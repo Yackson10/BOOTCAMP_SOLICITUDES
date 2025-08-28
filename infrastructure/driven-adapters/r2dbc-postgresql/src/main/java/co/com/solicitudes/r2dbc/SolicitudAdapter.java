@@ -1,4 +1,4 @@
-package co.com.solicitudes.r2dbc.config;
+package co.com.solicitudes.r2dbc;
 
 import co.com.solicitudes.model.solicitud.Solicitud;
 import co.com.solicitudes.model.solicitud.gateways.ISolicitudRepositorio;

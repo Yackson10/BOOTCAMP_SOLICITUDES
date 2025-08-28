@@ -31,7 +31,7 @@ public class MysqlConfig {
         return ConnectionFactories.get(options);
     }
 
-    @Bean(name = "mysqlEntityTemplate")
+    @Bean(name = "r2dbcEntityTemplate")
     public R2dbcEntityTemplate mysqlEntityTemplate(@Qualifier("mysqlConnectionFactory") ConnectionFactory connectionFactory) {
         return new R2dbcEntityTemplate(connectionFactory);
     }

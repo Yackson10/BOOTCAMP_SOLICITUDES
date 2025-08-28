@@ -37,7 +37,6 @@ public class SolicitudUseCase {
                         .switchIfEmpty(Mono.error(new RuntimeException("El tipo de préstamo no existe")))
                         .thenReturn(s))
                 .map(s -> Solicitud.builder()
-                        .id(s.getId() != null ? s.getId() : UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                         .email(s.getEmail())
                         .monto(s.getMonto())
                         .plazo(s.getPlazo())

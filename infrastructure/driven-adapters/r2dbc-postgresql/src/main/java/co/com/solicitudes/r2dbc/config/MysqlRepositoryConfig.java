@@ -6,7 +6,7 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 @Configuration
 @EnableR2dbcRepositories(
         basePackages = "co.com.authentication.r2dbc.repository",
-        entityOperationsRef = "mysqlEntityTemplate"
+        entityOperationsRef = "r2dbcEntityTemplate"
 )
 
 public class MysqlRepositoryConfig {
