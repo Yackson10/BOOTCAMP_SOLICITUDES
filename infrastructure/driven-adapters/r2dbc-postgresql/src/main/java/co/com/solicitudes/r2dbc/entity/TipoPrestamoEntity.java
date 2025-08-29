@@ -4,6 +4,8 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,10 +15,19 @@ import org.springframework.data.relational.core.mapping.Table;
 public class TipoPrestamoEntity {
 
     @Id
-    private Long id;
+    private Long idTipoPrestamo;
 
     private String nombre;
 
-    private String descripcion;
+    private BigDecimal montoMinimo;
+
+    private BigDecimal montoMaximo;
+
+    private String tasaInteres;
+
+    private Integer validacionAutomatica;
+
+
+
 
 }

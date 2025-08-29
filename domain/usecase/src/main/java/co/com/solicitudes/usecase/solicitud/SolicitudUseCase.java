@@ -16,11 +16,11 @@ public class SolicitudUseCase {
     private static final int MIN_PLAZO = 6;
     private static final int MAX_PLAZO = 84;
 
-    private ISolicitudRepositorio solicitudRepositorio;
+    private final ISolicitudRepositorio solicitudRepositorio;
 
     public Mono<Solicitud> registrar(Solicitud solicitud) {
         return Mono.just(solicitud)
-                .filter(s->s.getEmail() != null && s.getEmail().isEmpty())
+                .filter(s->s.getEmail() != null && !s.getEmail().isEmpty())
                 .switchIfEmpty(Mono.error(new RuntimeException("El email del cliente es obligatorio")))
                 .filter(s -> s.getPlazo() != null && s.getPlazo() > 0)
                 .switchIfEmpty(Mono.error(new RuntimeException("El plazo debe ser mayor a 0")))

@@ -6,6 +6,5 @@ import reactor.core.publisher.Mono;
 
 public interface ITipoPrestamoOperation extends R2dbcRepository<TipoPrestamoEntity, Long> {
 
-    Mono<TipoPrestamoEntity> findById(Integer id);
 
 }
