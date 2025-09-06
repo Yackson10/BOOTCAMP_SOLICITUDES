@@ -1,6 +1,7 @@
 package co.com.solicitudes.api.router;
 
 
+import co.com.solicitudes.model.solicitud.RequestData;
 import co.com.solicitudes.model.solicitud.Solicitud;
 import co.com.solicitudes.usecase.solicitud.SolicitudUseCase;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class SolicitudHandler {
     private final SolicitudUseCase solicitudUseCase;
 
     public Mono<ServerResponse> save(ServerRequest serverRequest){
-        return serverRequest.bodyToMono(Solicitud.class)
+        return serverRequest.bodyToMono(RequestData.class)
                 .flatMap(solicitudUseCase::registrar)
                 .flatMap(msg -> ServerResponse.ok().bodyValue(msg))
                 .onErrorResume(RuntimeException.class, ex ->

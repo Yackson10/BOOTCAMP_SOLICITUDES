@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   application:
     name: "CrediYA"
@@ -16,6 +16,9 @@ adapters:
     url: "r2dbc:mysql://localhost:3307/bd_solicitudes"
     usr: "myroot"
     psw: "myroot123"
+  rest-users:
+    timeout: 5000
+    url: "http://localhost:8080/api/v1/credi-ya/user/document/"
 management:
   endpoints:
     web:

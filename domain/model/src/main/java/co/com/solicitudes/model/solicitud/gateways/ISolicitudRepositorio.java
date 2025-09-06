@@ -8,4 +8,5 @@ public interface ISolicitudRepositorio {
     Mono<Solicitud> save(Solicitud solicitud);
 
     Mono<Boolean> existsTipoPrestamo(Long idTipoPrestamo);
+
 }

@@ -1,6 +1,8 @@
 package co.com.solicitudes.usecase.solicitud;
 
+import co.com.solicitudes.model.solicitud.RequestData;
 import co.com.solicitudes.model.solicitud.Solicitud;
+import co.com.solicitudes.model.solicitud.gateways.IClienteGateway;
 import co.com.solicitudes.model.solicitud.gateways.ISolicitudRepositorio;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
@@ -17,8 +19,11 @@ public class SolicitudUseCase {
     private static final int MAX_PLAZO = 84;
 
     private final ISolicitudRepositorio solicitudRepositorio;
+    private final ClienteUseCase clienteUseCase;
 
-    public Mono<Solicitud> registrar(Solicitud solicitud) {
+    public Mono<Solicitud> registrar(RequestData requestData) {
+        var solicitud = requestData.getSolicitud();
+
         return Mono.just(solicitud)
                 .filter(s->s.getEmail() != null && !s.getEmail().isEmpty())
                 .switchIfEmpty(Mono.error(new RuntimeException("El email del cliente es obligatorio")))
@@ -32,6 +37,15 @@ public class SolicitudUseCase {
                 .filter(s -> s.getPlazo() >= MIN_PLAZO && s.getPlazo() <= MAX_PLAZO)
                 .switchIfEmpty(Mono.error(new RuntimeException(
                         "El plazo debe estar entre " + MIN_PLAZO + " y " + MAX_PLAZO + " meses")))
+                .flatMap(s -> clienteUseCase.validateDocument(requestData.getCliente())
+                        .flatMap(cliente -> {
+                            if (Boolean.TRUE.equals(cliente.getExists())) {
+                                return Mono.just(s);
+                            } else {
+                                return Mono.error(new RuntimeException("El cliente no existe"));
+                            }
+                        })
+                )
                 .flatMap(s -> solicitudRepositorio.existsTipoPrestamo(s.getIdTipoPrestamo())
                         .filter(Boolean::booleanValue)
                         .switchIfEmpty(Mono.error(new RuntimeException("El tipo de préstamo no existe")))
